@@ -14,4 +14,11 @@ public interface InvestProductSummary extends InvestProduct {
    * 누적 투자금액
    */
   long accumulatedInvestingAmount();
+
+  /**
+   * 투자상품이 매진됐을 경우에 true 를 리턴한다.
+   */
+  default boolean isSoldOut() {
+    return totalInvestingAmount() == accumulatedInvestingAmount();
+  }
 }
