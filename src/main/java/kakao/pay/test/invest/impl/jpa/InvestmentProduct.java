@@ -94,6 +94,14 @@ public class InvestmentProduct implements InvestProductSummary {
     return accumulatedInvestingAmount;
   }
 
+  /**
+   * 주어진 투자금액을 집계할 경우 총 모집금액을 초과하면 true 를 리턴한다
+   * @param investmentAmount 투자금액
+   */
+  public boolean isOverflow(long investmentAmount) {
+    return accumulatedInvestingAmount + investmentAmount > totalInvestingAmount;
+  }
+
   public boolean isOverflow() {
     return accumulatedInvestingAmount > totalInvestingAmount;
   }
