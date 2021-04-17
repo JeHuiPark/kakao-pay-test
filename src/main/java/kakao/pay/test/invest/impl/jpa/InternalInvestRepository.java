@@ -1,7 +1,6 @@
 package kakao.pay.test.invest.impl.jpa;
 
 import java.util.Optional;
-import kakao.pay.test.invest.interfaces.InvestProductReceipt;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
@@ -17,8 +16,8 @@ class InternalInvestRepository {
     return investmentProductRepository.findById(productId);
   }
 
-  public void saveInvestProductReceipt(InvestProductReceipt investProductReceipt) {
-    investmentReceiptRepository.saveAndFlush((InvestmentReceipt) investProductReceipt);
+  public void saveInvestProductReceipt(InvestmentReceipt investProductReceipt) {
+    investmentReceiptRepository.saveAndFlush(investProductReceipt);
     if (productInvestmentLogRepository.logging(investProductReceipt)) {
       investmentProductRepository.accumulateInvestmentAmountWithInvestor(
           investProductReceipt.productId(), investProductReceipt.investingAmount());
