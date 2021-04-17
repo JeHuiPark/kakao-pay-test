@@ -30,7 +30,7 @@ public interface InvestmentProductRepository extends JpaRepository<InvestmentPro
    */
   @Query(
       "update InvestmentProduct i "
-          + "set i.totalInvestingAmount = i.totalInvestingAmount + :amount "
+          + "set i.accumulatedInvestingAmount = i.accumulatedInvestingAmount + :amount "
           + "where i.id = :productId ")
   @Modifying(clearAutomatically = true, flushAutomatically = true)
   void accumulateInvestmentAmount(@Param("productId") long productId,

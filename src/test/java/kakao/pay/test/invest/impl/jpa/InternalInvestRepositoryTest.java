@@ -110,7 +110,7 @@ class InternalInvestRepositoryTest {
             )
         );
 
-        assertTrue(10_000 < actual.accumulatedInvestingAmount());
+        assertEquals(500_000 + 10_000, actual.accumulatedInvestingAmount());
         assertEquals(2, actual.investorCount());
       }
     }
@@ -136,7 +136,7 @@ class InternalInvestRepositoryTest {
 
             )
         );
-        assertTrue(10_000 < actual.accumulatedInvestingAmount());
+        assertEquals(500_000 + 10_000, actual.accumulatedInvestingAmount());
         assertEquals(1, actual.investorCount());
       }
     }
