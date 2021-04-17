@@ -4,6 +4,7 @@ import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import kakao.pay.test.invest.interfaces.ProductInvestor;
+import kakao.pay.test.invest.interfaces.ProductInvestorUtil;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Nested;
@@ -37,20 +38,6 @@ class ProductInvestmentLogRepositoryTest {
     boolean subject(ProductInvestor given) {
       return productInvestmentLogRepository.logging(given);
     }
-
-    ProductInvestor build(long productId, long userId) {
-      return new ProductInvestor() {
-        @Override
-        public long userId() {
-          return userId;
-        }
-
-        @Override
-        public long productId() {
-          return productId;
-        }
-      };
-    }
   }
 
   @Nested
@@ -61,7 +48,7 @@ class ProductInvestmentLogRepositoryTest {
     @DisplayName("상품투자 기록이 있으면")
     class Context_case1 extends AccumulateTestContext {
 
-      ProductInvestor given = build(1, 1);
+      ProductInvestor given = ProductInvestorUtil.build(1, 1);
 
       @Override
       ProductInvestor preparedProductInvestLog() {
@@ -81,7 +68,7 @@ class ProductInvestmentLogRepositoryTest {
     @DisplayName("상품투자 기록이 없으면")
     class Context_case2 extends AccumulateTestContext {
 
-      ProductInvestor given = build(1, 1);
+      ProductInvestor given = ProductInvestorUtil.build(1, 1);
 
       @Override
       ProductInvestor preparedProductInvestLog() {
