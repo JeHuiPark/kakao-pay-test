@@ -1,4 +1,4 @@
-package kakao.pay.test.interfaces;
+package kakao.pay.test.invest.interfaces;
 
 /**
  * 나의 투자상품

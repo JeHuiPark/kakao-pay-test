@@ -1,4 +1,4 @@
-package kakao.pay.test.interfaces;
+package kakao.pay.test.invest.interfaces;
 
 import lombok.Builder;
 import lombok.Getter;

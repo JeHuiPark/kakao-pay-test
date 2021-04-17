@@ -1,4 +1,4 @@
-package kakao.pay.test.interfaces.exception;
+package kakao.pay.test.invest.interfaces.exception;
 
 /**
  * 투자상태와 관련된 예외의 super type.

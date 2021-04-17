@@ -1,4 +1,4 @@
-package kakao.pay.test.interfaces;
+package kakao.pay.test.invest.interfaces;
 
 import java.time.OffsetDateTime;
 import lombok.Getter;

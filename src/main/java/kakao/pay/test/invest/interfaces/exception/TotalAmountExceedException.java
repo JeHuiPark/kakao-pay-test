@@ -1,4 +1,4 @@
-package kakao.pay.test.interfaces.exception;
+package kakao.pay.test.invest.interfaces.exception;
 
 /**
  * 최대 투자금액 초과.

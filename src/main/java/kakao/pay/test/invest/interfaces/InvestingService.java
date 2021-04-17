@@ -1,7 +1,7 @@
-package kakao.pay.test.interfaces;
+package kakao.pay.test.invest.interfaces;
 
-import kakao.pay.test.interfaces.exception.InvestingStateException;
-import kakao.pay.test.interfaces.exception.NotExistProductException;
+import kakao.pay.test.invest.interfaces.exception.InvestingStateException;
+import kakao.pay.test.invest.interfaces.exception.NotExistProductException;
 
 /**
  * 투자 서비스.
