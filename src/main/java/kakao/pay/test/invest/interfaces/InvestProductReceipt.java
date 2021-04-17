@@ -5,7 +5,7 @@ import java.time.OffsetDateTime;
 /**
  * 투자 영수증.
  */
-public interface InvestProductReceipt extends InvestProduct {
+public interface InvestProductReceipt extends InvestProduct, ProductInvestor {
 
   /**
    * 투자금액.
