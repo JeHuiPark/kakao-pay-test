@@ -1,5 +1,6 @@
 package kakao.pay.test.invest.impl.jpa;
 
+import java.util.Optional;
 import kakao.pay.test.invest.impl.InvestRepository;
 import kakao.pay.test.invest.interfaces.InvestProductReceipt;
 import lombok.RequiredArgsConstructor;
@@ -12,6 +13,11 @@ class InternalInvestRepository implements InvestRepository {
   private final InvestmentProductRepository investmentProductRepository;
   private final InvestmentReceiptRepository investmentReceiptRepository;
   private final ProductInvestmentLogRepository productInvestmentLogRepository;
+
+  @Override
+  public Optional<InvestmentProduct> findById(long productId) {
+    return investmentProductRepository.findById(productId);
+  }
 
   @Override
   public void saveInvestProductReceipt(InvestProductReceipt investProductReceipt) {

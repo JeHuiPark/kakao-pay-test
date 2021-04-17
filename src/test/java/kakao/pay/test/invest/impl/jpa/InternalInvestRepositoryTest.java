@@ -141,4 +141,35 @@ class InternalInvestRepositoryTest {
       }
     }
   }
+
+  @Nested
+  @DisplayName("findById")
+  class Describe_findById {
+
+    @Nested
+    @DisplayName("주어진 ID와 일치하는 투자상품이 있으면")
+    class Context_case1 extends InternalInvestRepositoryTestContext {
+
+      @Test
+      @DisplayName("상품정보를 리턴한다")
+      void test5() {
+        var actual = internalInvestRepository.findById(preparedProduct.productId());
+
+        assertTrue(actual.isPresent());
+      }
+    }
+
+    @Nested
+    @DisplayName("주어진 ID와 일치하는 투자상품이 없으면")
+    class Context_case2 extends InternalInvestRepositoryTestContext {
+
+      @Test
+      @DisplayName("빈 값을 리턴한다")
+      void test6() {
+        var actual = internalInvestRepository.findById(-999);
+
+        assertTrue(actual.isEmpty());
+      }
+    }
+  }
 }
