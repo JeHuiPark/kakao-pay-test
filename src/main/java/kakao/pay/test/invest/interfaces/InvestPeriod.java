@@ -28,4 +28,15 @@ public class InvestPeriod {
     this.startedAt = startedAt;
     this.finishedAt = finishedAt;
   }
+
+  /**
+   * 주어진 시간이 시작일시와 종료일시 사이면 true를 리턴한다.
+   */
+  public boolean contains(OffsetDateTime targetDateTime) {
+    return !isOutOfBound(targetDateTime);
+  }
+
+  private boolean isOutOfBound(OffsetDateTime targetDateTime) {
+    return targetDateTime.isBefore(startedAt) || targetDateTime.isAfter(finishedAt);
+  }
 }
