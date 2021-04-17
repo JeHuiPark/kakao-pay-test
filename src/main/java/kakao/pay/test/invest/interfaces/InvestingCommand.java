@@ -1,7 +1,6 @@
 package kakao.pay.test.invest.interfaces;
 
 import lombok.Builder;
-import lombok.Getter;
 import lombok.NonNull;
 
 /**
@@ -9,21 +8,30 @@ import lombok.NonNull;
  *
  * @see InvestingService 투자 서비스 (소비자)
  */
-@Getter
-public class InvestingCommand {
+public class InvestingCommand implements ProductInvestor {
 
-  private final long userId;
-
-  private final long productId;
+  private final ProductInvestor productInvestor;
 
   private final long amount;
 
   @Builder
-  private InvestingCommand(@NonNull Long userId,
-                           @NonNull Long productId,
+  private InvestingCommand(@NonNull ProductInvestor productInvestor,
                            @NonNull Long amount) {
-    this.userId = userId;
-    this.productId = productId;
+    this.productInvestor = productInvestor;
     this.amount = amount;
+  }
+
+  public long amount() {
+    return amount;
+  }
+
+  @Override
+  public long userId() {
+    return productInvestor.userId();
+  }
+
+  @Override
+  public long productId() {
+    return productInvestor.productId();
   }
 }
