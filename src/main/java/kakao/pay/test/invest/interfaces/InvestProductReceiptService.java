@@ -8,6 +8,13 @@ import java.util.List;
 public interface InvestProductReceiptService {
 
   /**
+   * 주어진 productId 와  userId에 일치하는 투자정보들을 리턴합니다.
+   * @param productId 투자상품 식별값
+   * @param userId 사용자 식별값
+   */
+  List<InvestProductReceipt> findAllByProductId(long productId, long userId);
+
+  /**
    * userId와 일치하는 투자정보들을 리턴합니다.
    * @param userId 사용자 식별값
    * @return 투자정보 목록
