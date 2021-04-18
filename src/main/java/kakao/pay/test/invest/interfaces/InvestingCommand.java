@@ -17,6 +17,9 @@ public class InvestingCommand implements ProductInvestor {
   @Builder
   private InvestingCommand(@NonNull ProductInvestor productInvestor,
                            @NonNull Long amount) {
+    if (amount < 0) {
+      throw new IllegalArgumentException("투자금액은 0보다 작을 수 없습니다");
+    }
     this.productInvestor = productInvestor;
     this.amount = amount;
   }
