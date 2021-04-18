@@ -1,5 +1,8 @@
 package kakao.pay.test.invest.impl.jpa;
 
+import java.time.OffsetDateTime;
+import java.util.List;
+import kakao.pay.test.invest.interfaces.InvestProductSummary;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;
@@ -35,4 +38,11 @@ public interface InvestmentProductRepository extends JpaRepository<InvestmentPro
   @Modifying(clearAutomatically = true, flushAutomatically = true)
   void accumulateInvestmentAmount(@Param("productId") long productId,
                                   @Param("amount") long amount);
+
+  @Query("from InvestmentProduct i "
+      + "where i.startedAt <= :pivot "
+      + "  and i.finishedAt >= :pivot "
+      + "order by i.id desc")
+  List<InvestProductSummary> findAllByPivotOrderByIdDesc(
+      @Param("pivot") OffsetDateTime offsetDateTime);
 }
