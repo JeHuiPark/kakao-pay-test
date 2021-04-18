@@ -1,3 +1,5 @@
 spring:
   application:
     name: invest-service
+  jpa:
+    open-in-view: false
