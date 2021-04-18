@@ -40,7 +40,7 @@ class MyInvestRestController {
       return investProductReceipt.totalInvestingAmount();
     }
 
-    public long myInvestingAmount() {
+    public long getMyInvestingAmount() {
       return investProductReceipt.investingAmount();
     }
 
