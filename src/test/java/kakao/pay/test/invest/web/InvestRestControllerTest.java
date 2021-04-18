@@ -11,16 +11,14 @@ import kakao.pay.test.invest.interfaces.exception.InvestingPeriodException;
 import kakao.pay.test.invest.interfaces.exception.NotExistProductException;
 import kakao.pay.test.invest.interfaces.exception.SoldOutException;
 import kakao.pay.test.invest.interfaces.exception.TotalAmountExceedException;
+import kakao.pay.test.web.MockMvcTestBased;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Nested;
 import org.junit.jupiter.api.Test;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
 import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.http.MediaType;
-import org.springframework.test.web.servlet.MockMvc;
 
 /**
  * @see InvestRestController
@@ -29,14 +27,11 @@ import org.springframework.test.web.servlet.MockMvc;
 class InvestRestControllerTest {
 
   @WebMvcTest(InvestRestController.class)
-  @AutoConfigureMockMvc
-  private static class InvestingServiceTestContext {
-
-    @Autowired
-    MockMvc mockMvc;
+  private static class InvestingServiceTestContext extends MockMvcTestBased {
 
     @MockBean
     InvestingService investingService;
+
   }
 
   @Nested
