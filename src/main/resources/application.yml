@@ -1,7 +1,14 @@
 spring:
+  profiles:
+    include: ext
   application:
     name: invest-service
   jpa:
     open-in-view: false
   jackson:
     property-naming-strategy: SNAKE_CASE
+  datasource:
+    url: jdbc:mysql://localhost:3306/invest
+    username: invest
+    password: invest
+    driver-class-name: com.mysql.cj.jdbc.Driver
