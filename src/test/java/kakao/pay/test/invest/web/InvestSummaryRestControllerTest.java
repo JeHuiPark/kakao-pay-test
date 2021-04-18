@@ -2,6 +2,9 @@ package kakao.pay.test.invest.web;
 
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.when;
+import static org.springframework.restdocs.mockmvc.MockMvcRestDocumentation.document;
+import static org.springframework.restdocs.payload.PayloadDocumentation.fieldWithPath;
+import static org.springframework.restdocs.payload.PayloadDocumentation.responseFields;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.print;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
@@ -18,8 +21,11 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Nested;
 import org.junit.jupiter.api.Test;
+import org.springframework.boot.test.autoconfigure.restdocs.AutoConfigureRestDocs;
 import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
+import org.springframework.restdocs.mockmvc.RestDocumentationResultHandler;
+import org.springframework.restdocs.payload.JsonFieldType;
 
 /**
  * @see InvestSummaryRestController
@@ -27,12 +33,29 @@ import org.springframework.boot.test.mock.mockito.MockBean;
 @DisplayName("InvestSummaryRestControllerTest")
 class InvestSummaryRestControllerTest {
 
+  @AutoConfigureRestDocs
   @WebMvcTest(InvestSummaryRestController.class)
   private static class InvestingServiceTestContext extends MockMvcTestBased {
 
     @MockBean
     InvestProductSummaryService investProductSummaryService;
 
+    RestDocumentationResultHandler resultHandler() {
+      return document("invest/activated-invest-list",
+          responseFields(
+              fieldWithPath("[]").type(JsonFieldType.ARRAY).description("투자상품 목록")
+          ).andWithPrefix("[].",
+              fieldWithPath("product_id").type(JsonFieldType.NUMBER).description("상품ID"),
+              fieldWithPath("title").type(JsonFieldType.STRING).description("상품제목"),
+              fieldWithPath("total_investing_amount").type(JsonFieldType.NUMBER).description("총 모집금액"),
+              fieldWithPath("accumulated_investing_amount").type(JsonFieldType.NUMBER).description("현재 모집금액"),
+              fieldWithPath("investor_count").type(JsonFieldType.NUMBER).description("투자자 수"),
+              fieldWithPath("status").type(JsonFieldType.STRING).description("투자모집상태"),
+              fieldWithPath("started_at").type(JsonFieldType.STRING).description("모집시작일"),
+              fieldWithPath("finished_at").type(JsonFieldType.STRING).description("모집종료일")
+          )
+      );
+    }
   }
 
   @Nested
@@ -55,7 +78,8 @@ class InvestSummaryRestControllerTest {
         mockMvc.perform(get("/invests/activated"))
             .andDo(print())
             .andExpect(status().isOk())
-            .andExpect(jsonPath("$.[*].status").value("FINISHED"));
+            .andExpect(jsonPath("$.[*].status").value("FINISHED"))
+            .andDo(resultHandler());
       }
     }
 
@@ -75,7 +99,8 @@ class InvestSummaryRestControllerTest {
         mockMvc.perform(get("/invests/activated"))
             .andDo(print())
             .andExpect(status().isOk())
-            .andExpect(jsonPath("$.[*].status").value("PROGRESSING"));
+            .andExpect(jsonPath("$.[*].status").value("PROGRESSING"))
+            .andDo(resultHandler());
       }
     }
   }
