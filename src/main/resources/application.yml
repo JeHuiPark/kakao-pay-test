@@ -3,3 +3,5 @@ spring:
     name: invest-service
   jpa:
     open-in-view: false
+  jackson:
+    property-naming-strategy: SNAKE_CASE
