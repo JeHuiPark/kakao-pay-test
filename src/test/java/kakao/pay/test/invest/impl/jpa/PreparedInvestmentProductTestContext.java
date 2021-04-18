@@ -4,12 +4,10 @@ import kakao.pay.test.invest.interfaces.InvestPeriod;
 import kakao.pay.test.invest.interfaces.InvestProductType;
 import org.junit.jupiter.api.BeforeEach;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
 
 /**
  * 테스트용 투자상품을 준비시킵니다.
  */
-@DataJpaTest
 abstract class PreparedInvestmentProductTestContext {
 
   @Autowired

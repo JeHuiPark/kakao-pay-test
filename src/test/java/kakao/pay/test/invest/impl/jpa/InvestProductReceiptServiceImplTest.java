@@ -2,9 +2,17 @@ package kakao.pay.test.invest.impl.jpa;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertTrue;
+import static org.mockito.ArgumentMatchers.any;
+import static org.mockito.Mockito.never;
+import static org.mockito.Mockito.times;
+import static org.mockito.Mockito.verify;
+import static org.mockito.Mockito.when;
 
 import java.time.OffsetDateTime;
 import java.util.List;
+import java.util.Optional;
+import kakao.pay.test.invest.impl.InvestProductReceiptsCacheManager;
+import kakao.pay.test.invest.impl.UserInvestReceipts;
 import kakao.pay.test.invest.interfaces.InvestPeriod;
 import kakao.pay.test.invest.interfaces.InvestProductReceipt;
 import kakao.pay.test.invest.interfaces.InvestingCommand;
@@ -15,6 +23,7 @@ import org.junit.jupiter.api.Nested;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
+import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.context.annotation.Import;
 
 /**
@@ -39,6 +48,9 @@ class InvestProductReceiptServiceImplTest {
 
     @Autowired
     InvestProductReceiptServiceImpl investProductReceiptServiceImpl;
+
+    @MockBean
+    InvestProductReceiptsCacheManager investProductReceiptsCacheManager;
 
     @Override
     InvestPeriod preparedProductPeriod() {
@@ -80,12 +92,10 @@ class InvestProductReceiptServiceImplTest {
       @Test
       @DisplayName("투자목록을 리턴합니다")
       void test2() {
-        var actual = subject(1);
+        var actual = subject(givenUserId);
 
         assertEquals(1, actual.size());
       }
-
-
     }
 
     @Nested
@@ -98,6 +108,56 @@ class InvestProductReceiptServiceImplTest {
         var actual = subject(1);
 
         assertTrue(actual.isEmpty());
+      }
+    }
+
+    @Nested
+    @DisplayName("캐싱된 데이터가 존재하면")
+    class Context_case3 extends FindAllByUserIdTestContext {
+
+      @BeforeEach
+      void setupContext() {
+        when(investProductReceiptsCacheManager.get(any()))
+            .thenReturn(Optional.of(new UserInvestReceipts(List.of())));
+      }
+
+      @Test
+      @DisplayName("캐싱된 데이터를 리턴합니다")
+      void test5() {
+        var actual = subject(1);
+
+        assertEquals(0, actual.size());
+        verify(investProductReceiptsCacheManager, times(1)).get(any());
+        verify(investProductReceiptsCacheManager, never()).set(any(), any());
+      }
+    }
+
+    @Nested
+    @DisplayName("캐싱된 데이터가 없으면")
+    class Context_case4 extends FindAllByUserIdTestContext {
+
+      long givenUserId = 1;
+
+      @BeforeEach
+      void setupContext() {
+        investingServiceImpl.investing(
+            InvestingCommand.builder()
+                .productInvestor(ProductInvestorUtil.build(preparedProduct.productId(), givenUserId))
+                .amount(3_000L)
+                .build()
+        );
+        when(investProductReceiptsCacheManager.get(any()))
+            .thenReturn(Optional.empty());
+      }
+
+      @Test
+      @DisplayName("캐시 데이터를 생성하고, 데이터를 리턴합니다")
+      void test6() {
+        var actual = subject(givenUserId);
+
+        assertEquals(1, actual.size());
+        verify(investProductReceiptsCacheManager, times(1)).get(any());
+        verify(investProductReceiptsCacheManager, times(1)).set(any(), any());
       }
     }
   }
