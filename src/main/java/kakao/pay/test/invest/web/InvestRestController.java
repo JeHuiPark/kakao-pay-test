@@ -32,7 +32,7 @@ class InvestRestController {
   private final InvestingService investingService;
 
   @ResponseStatus(HttpStatus.NO_CONTENT)
-  @PostMapping("/investing/{productId}")
+  @PostMapping("/invest/{productId}")
   public void investing(@UserId long userId,
                         @PathVariable("productId") long productId,
                         @RequestBody @Valid InvestingRequest investingRequest) {

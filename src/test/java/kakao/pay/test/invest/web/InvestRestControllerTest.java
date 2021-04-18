@@ -51,7 +51,7 @@ class InvestRestControllerTest {
       @DisplayName("204 응답을 리턴한다")
       void test3() throws Exception {
         mockMvc.perform(
-            post("/investing/{productId}", "1")
+            post("/invest/{productId}", "1")
                 .contentType(MediaType.APPLICATION_JSON)
                 .content("{\"amount\":1000}")
                 .header("X-USER-ID", "1")
@@ -75,7 +75,7 @@ class InvestRestControllerTest {
       @DisplayName("409 응답을 리턴한다")
       void test4() throws Exception {
         mockMvc.perform(
-            post("/investing/{productId}", "1")
+            post("/invest/{productId}", "1")
                 .contentType(MediaType.APPLICATION_JSON)
                 .content("{\"amount\":1000}")
                 .header("X-USER-ID", "1")
@@ -99,7 +99,7 @@ class InvestRestControllerTest {
       @DisplayName("400 응답을 리턴한다")
       void test5() throws Exception {
         mockMvc.perform(
-            post("/investing/{productId}", "1")
+            post("/invest/{productId}", "1")
                 .contentType(MediaType.APPLICATION_JSON)
                 .content("{\"amount\":1000}")
                 .header("X-USER-ID", "1")
@@ -123,7 +123,7 @@ class InvestRestControllerTest {
       @DisplayName("409 응답을 리턴한다")
       void test6() throws Exception {
         mockMvc.perform(
-            post("/investing/{productId}", "1")
+            post("/invest/{productId}", "1")
                 .contentType(MediaType.APPLICATION_JSON)
                 .content("{\"amount\":1000}")
                 .header("X-USER-ID", "1")
@@ -147,7 +147,7 @@ class InvestRestControllerTest {
       @DisplayName("409 응답을 리턴한다")
       void test7() throws Exception {
         mockMvc.perform(
-            post("/investing/{productId}", "1")
+            post("/invest/{productId}", "1")
                 .contentType(MediaType.APPLICATION_JSON)
                 .content("{\"amount\":1000}")
                 .header("X-USER-ID", "1")
@@ -165,7 +165,7 @@ class InvestRestControllerTest {
       @DisplayName("400 응답을 리턴한다")
       void test8() throws Exception {
         mockMvc.perform(
-            post("/investing/{productId}", "1")
+            post("/invest/{productId}", "1")
                 .contentType(MediaType.APPLICATION_JSON)
                 .content("{\"amount\":500}")
                 .header("X-USER-ID", "1")
@@ -183,7 +183,7 @@ class InvestRestControllerTest {
       @DisplayName("400 응답을 리턴한다")
       void test9() throws Exception {
         mockMvc.perform(
-            post("/investing/{productId}", "1")
+            post("/invest/{productId}", "1")
                 .contentType(MediaType.APPLICATION_JSON)
                 .content("{\"amount\":1000}")
         )
