@@ -2,6 +2,9 @@ package kakao.pay.test.invest.web;
 
 import static org.mockito.ArgumentMatchers.anyLong;
 import static org.mockito.Mockito.when;
+import static org.springframework.restdocs.mockmvc.MockMvcRestDocumentation.document;
+import static org.springframework.restdocs.payload.PayloadDocumentation.fieldWithPath;
+import static org.springframework.restdocs.payload.PayloadDocumentation.responseFields;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.print;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
@@ -18,9 +21,12 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Nested;
 import org.junit.jupiter.api.Test;
+import org.springframework.boot.test.autoconfigure.restdocs.AutoConfigureRestDocs;
 import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.http.MediaType;
+import org.springframework.restdocs.mockmvc.RestDocumentationResultHandler;
+import org.springframework.restdocs.payload.JsonFieldType;
 
 /**
  * @see MyInvestRestController
@@ -28,12 +34,26 @@ import org.springframework.http.MediaType;
 @DisplayName("MyInvestRestControllerTest")
 class MyInvestRestControllerTest {
 
+  @AutoConfigureRestDocs
   @WebMvcTest(MyInvestRestController.class)
   private static class MyInvestmentListTestContext extends MockMvcTestBased {
 
     @MockBean
     InvestProductReceiptService investProductReceiptService;
 
+    RestDocumentationResultHandler resultHandler() {
+      return document("invest/my-list",
+          responseFields(
+              fieldWithPath("[]").type(JsonFieldType.ARRAY).description("투자정보 목록")
+          ).andWithPrefix("[].",
+              fieldWithPath("product_id").type(JsonFieldType.NUMBER).description("상품ID"),
+              fieldWithPath("title").type(JsonFieldType.STRING).description("상품제목"),
+              fieldWithPath("total_investing_amount").type(JsonFieldType.NUMBER).description("총 모집금액"),
+              fieldWithPath("my_investing_amount").type(JsonFieldType.NUMBER).description("나의 투자금액"),
+              fieldWithPath("investing_at").type(JsonFieldType.STRING).description("투자일시")
+          )
+      );
+    }
   }
   
   @Nested
@@ -72,7 +92,8 @@ class MyInvestRestControllerTest {
                 .header("X-USER-ID", "1")
         )
             .andDo(print())
-            .andExpect(status().isOk());
+            .andExpect(status().isOk())
+            .andDo(resultHandler());
       }
     }
   }
