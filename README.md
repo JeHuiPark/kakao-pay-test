@@ -1,3 +1,25 @@
+## Start Guide
+
+MySQL, Redis 실행
+``` shell
+docker-compose up 
+```
+
+jar 빌드
+```shell
+./gradlew build
+```
+
+이미지 빌드
+```shell
+docker build -t jehui/kakao-pay-test .
+```
+
+컨테이너 실행
+```shell
+docker run -p 8080:8080 jehui/kakao-pay-test
+```
+
 ## 요구사항 분석
 
 ### 기능 분석

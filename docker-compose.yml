@@ -1,0 +1,19 @@
+version: '3.1'
+
+services:
+  invest_db:
+    image: mysql:5.7
+    restart: always
+    ports:
+      - 3306:3306
+    environment:
+      MYSQL_ROOT_PASSWORD: invest
+      MYSQL_DATABASE: invest
+      MYSQL_USER: invest
+      MYSQL_PASSWORD: invest
+
+  invest_redis:
+    image: redis:5.0.7-alpine
+    restart: always
+    ports:
+      - 6379:6379
