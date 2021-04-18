@@ -5,6 +5,8 @@ spring:
     name: invest-service
   jpa:
     open-in-view: false
+    hibernate:
+      ddl-auto: update
   jackson:
     property-naming-strategy: SNAKE_CASE
   datasource:
