@@ -3,6 +3,8 @@ package kakao.pay.test.invest.impl.jpa;
 import java.time.OffsetDateTime;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.EnumType;
+import javax.persistence.Enumerated;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -29,7 +31,8 @@ public class InvestmentProduct implements InvestProductSummary {
   @Column(name = "title")
   private String title;
 
-  @Column(name = "type", length = 20)
+  @Enumerated(EnumType.STRING)
+  @Column(name = "product_type", length = 20)
   private InvestProductType investProductType;
 
   @Column(name = "total_investing_amount")
