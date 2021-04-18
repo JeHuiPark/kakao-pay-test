@@ -36,6 +36,10 @@ class InvestSummaryRestController {
       return investProductSummary.title();
     }
 
+    public long getTotalInvestingAmount() {
+      return investProductSummary.totalInvestingAmount();
+    }
+
     public long getAccumulatedInvestingAmount() {
       return investProductSummary.accumulatedInvestingAmount();
     }
