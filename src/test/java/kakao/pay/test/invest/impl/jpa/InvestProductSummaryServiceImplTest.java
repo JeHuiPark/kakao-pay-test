@@ -13,6 +13,7 @@ import org.junit.jupiter.api.Nested;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.ValueSource;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
 import org.springframework.context.annotation.Import;
 
 /**
@@ -21,6 +22,7 @@ import org.springframework.context.annotation.Import;
 @DisplayName("InvestProductSummaryServiceImplTest")
 class InvestProductSummaryServiceImplTest {
 
+  @DataJpaTest
   @Import(InvestProductSummaryServiceImpl.class)
   private static class ListByPivotTestContext extends PreparedInvestmentProductTestContext {
 
