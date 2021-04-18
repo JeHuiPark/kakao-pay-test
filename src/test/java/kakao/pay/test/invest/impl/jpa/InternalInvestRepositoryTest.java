@@ -25,10 +25,7 @@ class InternalInvestRepositoryTest {
 
   @Import(InternalInvestRepository.class)
   @DataJpaTest
-  private static class InternalInvestRepositoryTestContext {
-
-    @Autowired
-    InvestmentProductRepository investmentProductRepository;
+  private static class InternalInvestRepositoryTestContext extends PreparedInvestmentProductTestContext {
 
     @Autowired
     InvestmentReceiptRepository investmentReceiptRepository;
@@ -39,20 +36,16 @@ class InternalInvestRepositoryTest {
     @Autowired
     InternalInvestRepository internalInvestRepository;
 
-    InvestmentProduct preparedProduct;
+    @Override
+    InvestPeriod preparedProductPeriod() {
+      return new InvestPeriod(
+          OffsetDateTime.now().minusDays(1),
+          OffsetDateTime.now().plusDays(1));
+    }
 
-    @BeforeEach
-    private void _setupContext() {
-      preparedProduct = InvestmentProduct.builder()
-          .investPeriod(
-              new InvestPeriod(
-                  OffsetDateTime.now().minusDays(1),
-                  OffsetDateTime.now().plusDays(1)))
-          .investProductType(InvestProductType.CREDIT)
-          .totalInvestingAmount(10_000_000L)
-          .title("테스트 상품")
-          .build();
-      investmentProductRepository.saveAndFlush(preparedProduct);
+    @Override
+    long preparedProductTotalInvestingAmount() {
+      return 10_000_000;
     }
   }
 

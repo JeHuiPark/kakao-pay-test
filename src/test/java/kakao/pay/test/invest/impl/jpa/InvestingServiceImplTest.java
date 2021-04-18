@@ -6,7 +6,6 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import java.time.OffsetDateTime;
 import kakao.pay.test.invest.interfaces.InvestPeriod;
-import kakao.pay.test.invest.interfaces.InvestProductType;
 import kakao.pay.test.invest.interfaces.InvestingCommand;
 import kakao.pay.test.invest.interfaces.ProductInvestorUtil;
 import kakao.pay.test.invest.interfaces.exception.InvestingPeriodException;
@@ -32,30 +31,10 @@ class InvestingServiceImplTest {
       InvestingServiceImpl.class
   })
   @DataJpaTest
-  private abstract static class InvestingTestContext {
-
-    @Autowired
-    InvestmentProductRepository investmentProductRepository;
+  private abstract static class InvestingTestContext extends PreparedInvestmentProductTestContext {
 
     @Autowired
     InvestingServiceImpl investingServiceImpl;
-
-    InvestmentProduct preparedProduct;
-
-    @BeforeEach
-    void _setupContext() {
-      preparedProduct = InvestmentProduct.builder()
-          .investPeriod(preparedProductPeriod())
-          .investProductType(InvestProductType.CREDIT)
-          .totalInvestingAmount(preparedProductTotalInvestingAmount())
-          .title("테스트 상품")
-          .build();
-      investmentProductRepository.saveAndFlush(preparedProduct);
-    }
-
-    abstract InvestPeriod preparedProductPeriod();
-
-    abstract long preparedProductTotalInvestingAmount();
 
     InvestmentProduct subject(InvestingCommand given) {
       investingServiceImpl.investing(given);
