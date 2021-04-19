@@ -15,7 +15,8 @@ jar 빌드
 docker build -t jehui/kakao-pay-test .
 ```
 
-컨테이너 실행
+~~컨테이너 실행~~  
+컨테이너 네트워크 설정 누락으로 실행 불가능
 ```shell
 docker run -p 8080:8080 jehui/kakao-pay-test
 ```
